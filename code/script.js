@@ -1,5 +1,6 @@
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/forecast?q=Kiruna,Sweden&units=metric&appid=3500e3bacf630605ddf92aeaab386a9e';
 const cityName = document.getElementById('city-name');
+const temperature = document.getElementById('temperature');
 const container = document.getElementById('main');
 
 console.log('API Fetch starting')
@@ -18,7 +19,9 @@ fetch(WEATHER_URL)
   // the conversion is available to us here:
   .then((data) => {
     
-    cityName.innerHTML = ` ${data.city.name}`;
+    cityName.innerHTML = ` ${data.city.name} `;
+    const filteredForeast = data.list.filter(item => item.dt_txt.includes('12:00'))
+    //temperature.innerHTML = ` ${new Date(.main.temp)}`;
 
     container.innerHTML = `
       <div>
@@ -27,15 +30,15 @@ fetch(WEATHER_URL)
       </div>
       `;
 
-    const filteredForeast = data.list.filter(item => item.dt_txt.includes('12:00'))
+    
      
     filteredForeast.forEach((weather) => {
       const temp = weather.main.temp; 
-      const type = weather.weather[0].description;
+      const type = weather.weather.description;
       container.innerHTML += `
         <section class="forecast">
           <p>${weather.weather[0].description} </p>
-          <p>${weather.main.temp}</p>
+          <p>${(weather.main.temp).toFixed(0)}</p>
         </section>`;
     });
   });
