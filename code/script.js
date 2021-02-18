@@ -25,8 +25,8 @@ fetch(WEATHER_URL)
     //temperature.innerHTML = ` ${new Date(.main.temp)}`;
 
     sun.innerHTML = `
-          <p>Sunrise is: ${new Date((data.city.sunrise + data.city.timezone) * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
-          <p>Sunset is: ${new Date((data.city.sunset + data.city.timezone) * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+          <p>Sunrise is: ${new Date((data.city.sunrise + data.city.timezone + (new Date().getTimezoneOffset() * 60)) * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+          <p>Sunset is: ${new Date((data.city.sunset + data.city.timezone + (new Date().getTimezoneOffset() * 60)) * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
       `;
      
     filteredForeast.forEach((weather) => {
