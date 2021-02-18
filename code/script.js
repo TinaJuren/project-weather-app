@@ -19,16 +19,30 @@ fetch(WEATHER_URL)
   .then((data) => {
     
     cityName.innerHTML = ` ${data.city.name}`;
+
+    container.innerHTML = `
+      <div>
+          <p>Sunrise is: ${new Date((data.city.sunrise + data.city.timezone) * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+          <p>Sunset is: ${new Date((data.city.sunset + data.city.timezone) * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+      </div>
+      `;
      
     data.list.forEach((weather) => {
       const temp = weather.main.temp; 
-      const type = weather.weather.description;
+      const type = weather.weather[0].description;
       container.innerHTML += `
         <section class="forecast">
-          <p>${weather.weather.description} </p>
+          <p>${weather.weather[0].description} </p>
           <p>${weather.main.temp}</p>
         </section>`;
     });
   });
 
+  fetch(WEATHER_URL)
+  .then((response) => {
+    return response.json();
+  })
+  .then(data => {
+    
+  })
 console.log('API Fetch Initiation');
