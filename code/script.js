@@ -1,4 +1,4 @@
-const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/forecast?q=Kiruna,Sweden&units=metric&cnt=5&appid=3500e3bacf630605ddf92aeaab386a9e';
+const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/forecast?q=Kiruna,Sweden&units=metric&appid=3500e3bacf630605ddf92aeaab386a9e';
 const cityName = document.getElementById('city-name');
 const container = document.getElementById('main');
 
@@ -26,8 +26,10 @@ fetch(WEATHER_URL)
           <p>Sunset is: ${new Date((data.city.sunset + data.city.timezone) * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
       </div>
       `;
+
+    const filteredForeast = data.list.filter(item => item.dt_txt.includes('12:00'))
      
-    data.list.forEach((weather) => {
+    filteredForeast.forEach((weather) => {
       const temp = weather.main.temp; 
       const type = weather.weather[0].description;
       container.innerHTML += `
